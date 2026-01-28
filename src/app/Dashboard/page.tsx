@@ -1,16 +1,10 @@
-// app/(dashboard)/dashboard/page.tsx
-import { getDashboardMetrics } from "../../services/service"
-import { MetricsGrid } from "../../components/Metrics/MetricsGrid";
-import { DashboardHeader } from "../../components/DashboardHeader";
+import { StartCard } from "../../components/StartCard";
 
-export default async function DashboardPage() {
-  const metrics = await getDashboardMetrics()
-
+ export default function DashboardPage() {
   return (
-    <section className="space-y-8">
-      <DashboardHeader />
-
-      <MetricsGrid metrics={metrics} />
-    </section>
-  )
+    <div className="rounded-lg pt-4 h-[200vh]">
+      <StartCard />
+    </div>
+  );
 }
+

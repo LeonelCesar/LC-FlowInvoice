@@ -20,7 +20,7 @@ export default function Home() {
             </p>
 
             <Link
-              href="/login"
+              href="/Login"
               className="inline-flex items-center justify-center rounded-lg bg-yellow-400 px-8 py-3 text-base font-semibold text-gray-900 shadow-lg transition-all duration-200 hover:bg-yellow-500 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-300"
             >
               Testar grátis

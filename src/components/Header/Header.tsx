@@ -7,10 +7,10 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { label: "Produto", href: "/produto" },
+  { label: "Funcionalidades", href: "/funcionalidades" },
   { label: "Preços", href: "/precos" },
-  { label: "Sobre", href: "/sobre" },
-  { label: "Contato", href: "/contato" },
+  { label: "Clientees", href: "/clientes" },
+  { label: "Suporte", href: "/suporte" },
 ];
 
 export function Header() {
@@ -47,14 +47,14 @@ export function Header() {
           ))}
 
           <Link
-            href="/login"
+            href="/Login"
             className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
           >
             Login
           </Link>
 
           <Link
-            href="/register"
+            href="/Register"
             className="rounded-md bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-200"
           >
             Register
@@ -75,11 +75,11 @@ export function Header() {
       {open && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div
-            className="absolute inset-0 bg-black/40"
+            className="bg-black/60 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
 
-          <div className="absolute right-0 top-0 h-full w-72 bg-white shadow-xl">
+          <div className="absolute right-0 top-0 h-full w-72 bg-gray-900 shadow-2xl">
             <div className="flex items-center justify-between border-b px-4 py-4">
               <span className="text-sm font-semibold text-gray-900">Menu</span>
               <button
@@ -105,7 +105,7 @@ export function Header() {
 
               <div className="mt-4 flex flex-col gap-3">
                 <Link
-                  href="/login"
+                  href="/Login"
                   onClick={() => setOpen(false)}
                   className="rounded-md border border-gray-300 px-4 py-2 text-center text-sm font-medium text-gray-700 transition hover:bg-gray-100"
                 >
@@ -113,7 +113,7 @@ export function Header() {
                 </Link>
 
                 <Link
-                  href="/register"
+                  href="/Register"
                   onClick={() => setOpen(false)}
                   className="rounded-md bg-gray-900 px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-gray-800"
                 >

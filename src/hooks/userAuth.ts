@@ -10,7 +10,7 @@ export const useAuth = () => {
     // Mock login
     if (email && password) {
       setUser(email);
-      router.push("/"); // redireciona para dashboard
+      router.push("/Dashboard"); // redireciona para dashboard
     }
   };
 
@@ -18,7 +18,7 @@ export const useAuth = () => {
     // Mock register
     if (name && email && password) {
       setUser(email);
-      router.push("/"); // redireciona para dashboard
+      router.push("/Dashboard"); // redireciona para dashboard
     }
   };
 
