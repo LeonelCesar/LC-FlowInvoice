@@ -19,7 +19,7 @@ export const RegisterForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto p-6 bg-white shadow rounded mt-20"
+      className="max-w-md mx-auto p-6 bg-white shadow-2xl rounded-2xl mt-20"
     >
       <h2 className="text-xl font-bold mb-4 text-center text-gray-500">Registo</h2>
       <Input label="Nome" type="text" value={name} onChange={e => setName(e.target.value)} />

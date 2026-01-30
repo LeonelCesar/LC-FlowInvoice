@@ -31,7 +31,7 @@ export function Header() {
             width={62} // ajuste para o tamanho desejado
             height={62} // ajuste proporcional
           />
-          <span>LC-FlowInvoice</span>
+          <span className="text-gray-500">LC-FlowInvoice</span>
         </Link>
 
         {/* Desktop navigation */}
