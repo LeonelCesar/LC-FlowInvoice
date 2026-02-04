@@ -2,17 +2,17 @@
 
 export const invoices = [
   {
-    clientName: 'João Silva',
+    clientName: 'Eloa Maria Neves César',
     amount: 1200,
     status: 'Paga',
   },
   {
-    clientName: 'Ana Costa',
+    clientName: 'Henriqueta Bengui César',
     amount: 850,
     status: 'Pendente',
   },
   {
-    clientName: 'Carlos Lima',
+    clientName: 'Adão Domingoa Gonçalves Costa',
     amount: 2400,
     status: 'Paga',
   },

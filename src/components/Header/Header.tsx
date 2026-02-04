@@ -73,7 +73,7 @@ export function Header() {
 
       {/* Mobile drawer */}
       {open && (
-        <div className="fixed inset-0 z-50 md:hidden">
+        <div className="fixed inset-0 z-50 md:hidden sm:z-1">
           <div
             className="bg-black/60 backdrop-blur-sm"
             onClick={() => setOpen(false)}
@@ -91,7 +91,7 @@ export function Header() {
               </button>
             </div>
 
-            <nav className="flex flex-col gap-4 px-4 py-6">
+            <nav className="flex flex-col h-screen justify-between gap-4 px-4 py-6">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.href}
@@ -103,11 +103,11 @@ export function Header() {
                 </Link>
               ))}
 
-              <div className="mt-4 flex flex-col gap-3">
+              <div className="mt-4 flex flex-col gap-4">
                 <Link
                   href="/Login"
                   onClick={() => setOpen(false)}
-                  className="rounded-md border border-gray-300 px-4 py-2 text-center text-sm font-medium text-gray-700 transition hover:bg-gray-100"
+                  className="rounded-md border border-gray-300 px-4 py-3 text-center text-sm font-medium text-gray-700 transition hover:bg-gray-100"
                 >
                   Login
                 </Link>
@@ -115,7 +115,7 @@ export function Header() {
                 <Link
                   href="/Register"
                   onClick={() => setOpen(false)}
-                  className="rounded-md bg-gray-900 px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-gray-800"
+                  className="rounded-md bg-gray-900 px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-gray-800"
                 >
                   Register
                 </Link>

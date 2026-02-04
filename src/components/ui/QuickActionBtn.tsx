@@ -1,11 +1,7 @@
-import { Button } from "../../components/ui/Button";
-import { Plus, UserPlus } from 'lucide-react'
+import { Button } from "./Button";
+import { Plus, UserPlus } from "lucide-react";
 
-/**
- * Botões de ação rápida
- * Ações mais comuns do dashboard
- */
-export function QuickActions() {
+export function QuickActionBtn() {
   return (
     <div className="flex gap-4">
       <Button className="gap-2">
@@ -18,5 +14,5 @@ export function QuickActions() {
         Nova Fatura
       </Button>
     </div>
-  )
+  );
 }

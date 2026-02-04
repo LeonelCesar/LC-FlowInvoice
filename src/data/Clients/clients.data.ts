@@ -1,6 +1,6 @@
 export const clients = [
-  { name: 'João Silva', email: 'joao@email.com', status: 'Ativo' },
-  { name: 'Ana Costa', email: 'ana@email.com', status: 'Ativo' },
-  { name: 'Carlos Lima', email: 'Inativo', status: 'Inativo' }, // corrigir email se quiseres
+  { name: 'Eloa César', email: 'eloa@email.com', status: 'Ativo' },
+  { name: 'Adão Costa', email: 'adao@email.com', status: 'Ativo' },
+  { name: 'Patrick Rafael', email: 'patrick@email.com', status: 'Inativo' },
 ]
 
