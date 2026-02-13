@@ -18,7 +18,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    "inline-flex items-center justify-center px-4 py-3 text-sm font-medium transition-colors focus:outline-none cursor-pointer rounded-2xl shadow-lg";
+    "inline-flex items-center justify-center px-2 py-3 text-sm font-medium transition-colors focus:outline-none cursor-pointer rounded-2xl shadow-lg focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variants = {
     primary:
