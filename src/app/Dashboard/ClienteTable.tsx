@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Client } from "@/types/client";
 import { clientsService } from "@/services/clients.service";
 
-export default function ClientsTable() {
+export default function ClienteTable() {
   const [clients, setClients] = useState<Client[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -42,7 +42,7 @@ export default function ClientsTable() {
 
   return (
     <Container>
-      <div className="w-full">
+      <div className="w-full mt-6 mb-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-gray-500">Últimos Clientes</h2>
 

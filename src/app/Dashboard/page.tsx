@@ -8,7 +8,7 @@ import { invoicesMock } from "../../mocks/invoices.mock";
 import { Star } from "lucide-react"; */
 import { MetricCard } from "../../components/MetricCard";
 import { Container } from "@/components/Container/Container";
-import Table from "../Dashboard/Table";
+import Table from "./ClienteTable";
 
 export default function Dashboard() {
   return (

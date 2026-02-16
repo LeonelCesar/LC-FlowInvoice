@@ -100,7 +100,7 @@ export const MetricCard = () => {
   );
 };
 
-/* Card (CARD DE VERDADE) */
+/* Card  */
 
 const Card = ({
   title,
@@ -124,14 +124,11 @@ const Card = ({
       <div className="flex items-start justify-between mb-4">
         <div>
           <h3 className="text-sm font-medium text-slate-500 mb-1">{title}</h3>
-
-          {/* Valor (azul marinho → azul céu) */}
           <p className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-sky-500">
             {animatedValue}
           </p>
         </div>
 
-        {/* Badge */}
         <span
           className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
             trend === "up"
@@ -144,7 +141,6 @@ const Card = ({
         </span>
       </div>
 
-      {/* Sparkline */}
       <div className="w-full h-14 mb-3">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={sparklineData}>

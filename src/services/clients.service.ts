@@ -1,14 +1,21 @@
-import { Client } from "@/types/client"
-import { clientsMock } from "@/mocks/clients.mock"
+import { Client } from "@/types/client";
+import { clientsMock } from "@/mocks/clients.mock";
+
+const delay = (ms: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 export const clientsService = {
-  getAll: async (): Promise<Client[]> => {
-    await new Promise((res) => setTimeout(res, 500))
-    return clientsMock
+  async getAll(): Promise<Client[]> {
+    await delay(500);
+
+    return [...clientsMock];
   },
 
-  getById: async (id: string): Promise<Client | undefined> => {
-    await new Promise((res) => setTimeout(res, 300))
-    return clientsMock.find((c) => c.id === id)
+  async getById(id: string): Promise<Client | null> {
+    await delay(300);
+
+    const client = clientsMock.find((c) => c.id === id);
+
+    return client ?? null;
   },
-}
+};
