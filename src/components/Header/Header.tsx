@@ -1,129 +1,161 @@
 "use client";
 
+import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import ImageLogo from "../../../public/icone-fatura.png";
 import Link from "next/link";
-import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Button } from "../ui/Button";
+import ImageLogo from "../../../public/icone-fatura.png";
 
-const NAV_LINKS = [
-  { label: "Funcionalidades", href: "/funcionalidades" },
-  { label: "Preços", href: "/precos" },
-  { label: "Clientees", href: "/clientes" },
-  { label: "Suporte", href: "/suporte" },
+type NavLink = {
+  label: string;
+  href: string;
+};
+
+const NAV_LINKS: NavLink[] = [
+  { label: "Clientes", href: "/Clientes" },
+  { label: "Dashboard Clientes", href: "/Dashboard" },
+  { label: "Faturas", href: "/Faturas" },
+  { label: "Detalhes", href: "/Detalhes" },
 ];
 
 export function Header() {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openMenu = useCallback(() => setIsOpen(true), []);
+  const closeMenu = useCallback(() => setIsOpen(false), []);
+
+  // Prevent body scroll when drawer is open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  }, [isOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 sm:px-2 bg-white backdrop-blur py-4">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between sm:px-6">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-lg font-semibold tracking-tight text-gray-900"
-        >
-          <Image
-            src={ImageLogo}
-            alt="Fatura LC-FlowInvoice"
-            className="rounded-xl transform transition-transform duration-500 hover:scale-105 hover:rotate-1"
-            width={62} // ajuste para o tamanho desejado
-            height={62} // ajuste proporcional
-          />
-          <span className="text-gray-500">LC-FlowInvoice</span>
-        </Link>
+    <header className="sticky top-0 z-50 w-full border-b bg-white">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <Logo />
 
-        {/* Desktop navigation */}
-        <nav className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900"
-            >
-              {link.label}
-            </Link>
-          ))}
+        {/* Desktop */}
+        <div className="hidden items-center gap-8 md:flex">
+          <NavLinks />
+          <AuthActions />
+        </div>
 
-          <Link
-            href="/Login"
-            className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100"
-          >
-            Login
-          </Link>
-
-          <Link
-            href="/Register"
-            className="rounded-md bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-200"
-          >
-            Register
-          </Link>
-        </nav>
-
-        {/* Mobile menu button */}
+        {/* Mobile Toggle */}
         <button
-          onClick={() => setOpen(true)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 transition hover:bg-gray-100 md:hidden"
+          onClick={openMenu}
           aria-label="Abrir menu"
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
+          className="rounded-md p-2 text-gray-700 transition hover:bg-gray-100 md:hidden"
         >
           <Menu className="h-6 w-6" />
         </button>
       </div>
 
-      {/* Mobile drawer */}
-      {open && (
-        <div className="fixed inset-0 z-50 md:hidden sm:z-1">
-          <div
-            className="bg-black/60 backdrop-blur-sm"
-            onClick={() => setOpen(false)}
-          />
-
-          <div className="absolute right-0 top-0 h-full w-72 bg-gray-900 shadow-2xl">
-            <div className="flex items-center justify-between border-b px-4 py-4">
-              <span className="text-sm font-semibold text-gray-900">Menu</span>
-              <button
-                onClick={() => setOpen(false)}
-                className="rounded-md p-2 text-gray-700 transition hover:bg-gray-100"
-                aria-label="Fechar menu"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            <nav className="flex flex-col h-screen justify-between gap-4 px-4 py-6">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-gray-700 transition hover:text-gray-900"
-                >
-                  {link.label}
-                </Link>
-              ))}
-
-              <div className="mt-4 flex flex-col gap-4">
-                <Link
-                  href="/Login"
-                  onClick={() => setOpen(false)}
-                  className="rounded-md border border-gray-300 px-4 py-3 text-center text-sm font-medium text-gray-700 transition hover:bg-gray-100"
-                >
-                  Login
-                </Link>
-
-                <Link
-                  href="/Register"
-                  onClick={() => setOpen(false)}
-                  className="rounded-md bg-gray-900 px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-gray-800"
-                >
-                  Register
-                </Link>
-              </div>
-            </nav>
-          </div>
-        </div>
-      )}
+      <MobileDrawer isOpen={isOpen} onClose={closeMenu} />
     </header>
+  );
+}
+
+/* Logo */
+
+function Logo() {
+  return (
+    <Link
+      href="/"
+      className="flex items-center gap-3 text-lg font-semibold tracking-tight text-gray-900"
+    >
+      <Image
+        src={ImageLogo}
+        alt="Logo LC-FlowInvoice"
+        width={48}
+        height={48}
+        priority
+        className="rounded-lg transition-transform duration-300 hover:scale-105"
+      />
+      <span className="text-gray-600">LC-FlowInvoice</span>
+    </Link>
+  );
+}
+
+/* Navigation Links */
+
+function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <nav className="flex w-full flex-col items-start gap-6 text-left md:flex-row md:items-center">
+      {NAV_LINKS.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          onClick={onNavigate}
+          className="text-md font-medium text-gray-500 transition hover:text-gray-900"
+        >
+          {link.label}
+        </Link>
+      ))}
+    </nav>
+  );
+}
+
+/* Auth Action */
+
+function AuthActions({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <div className="flex w-full justify-center gap-4 md:w-auto">
+      <Link href="/Login" onClick={onNavigate}>
+        <Button variant="secondary">Login</Button>
+      </Link>
+
+      <Link href="/Register" onClick={onNavigate}>
+        <Button variant="danger">Register</Button>
+      </Link>
+    </div>
+  );
+}
+
+
+/* Mobile Drawer */
+
+type MobileDrawerProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
+  if (!isOpen) return null;
+
+  return (
+    <div
+      id="mobile-menu"
+      className="fixed inset-0 z-50 md:hidden"
+      role="dialog"
+      aria-modal="true"
+    >
+      {/* Overlay */}
+      <div
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Drawer */}
+      <div className="absolute right-0 top-0 flex h-full w-full flex-col bg-white shadow-2xl animate-in slide-in-from-right">
+        <div className="flex items-center justify-between border-b px-4 py-4">
+          <span className="text-sm font-semibold text-gray-900">Menu</span>
+          <button
+            onClick={onClose}
+            aria-label="Fechar menu"
+            className="rounded-md p-2 text-gray-700 transition hover:bg-gray-100"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        <div className="flex flex-col gap-20 px-4 py-6">
+          <NavLinks onNavigate={onClose} />
+          <AuthActions onNavigate={onClose} />
+        </div>
+      </div>
+    </div>
   );
 }

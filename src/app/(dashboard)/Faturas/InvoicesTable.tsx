@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Invoice } from "@/types/invoice";
 import { invoicesService } from "@/services/invoices.service";
+import { Button } from "@/components/ui/Button";
 
 export default function InvoicesTable() {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
@@ -43,9 +44,10 @@ export default function InvoicesTable() {
       <div className="w-full">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-gray-500">Últimas Faturas</h2>
-          <button className="px-4 py-2 text-sm bg-gray-800 text-white rounded-lg hover:bg-gray-700">
+       
+          <Button variant="primary" onClick={() => alert("Funcionalidade de criação de fatura ainda não implementada")}>
             Nova Fatura
-          </button>
+          </Button>
         </div>
 
         <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">

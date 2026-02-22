@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <section className="relative flex h-[calc(100vh-64px)] items-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white overflow-hidden">
+      <section className="relative flex h-[calc(100vh-64px)] items-center bg-linear-to-r from-blue-600 to-indigo-600 text-white overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="max-w-2xl text-center md:text-left">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight tracking-tight mb-6">

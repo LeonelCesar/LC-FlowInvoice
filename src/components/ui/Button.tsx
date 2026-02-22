@@ -18,15 +18,15 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    "inline-flex items-center justify-center px-2 py-3 text-sm font-medium transition-colors focus:outline-none cursor-pointer rounded-2xl shadow-lg focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+    "inline-flex items-center justify-center px-2 py-3 text-lg font-medium focus:outline-none cursor-pointer rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed";
 
   const variants = {
     primary:
-      "bg-sky-500 text-white hover:bg-sky-600",
+      "px-4 py-2 text-sm bg-gray-800 text-white rounded-lg hover:bg-gray-700", // Nova Fatura, Novo Cliente
     secondary:
-      "bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-gray-400",
+      "rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100", // Login
     danger:
-      "bg-red-600 text-white hover:bg-red-700 focus:ring-red-500",
+      "rounded-md bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-200", // Register
   };
 
   return (

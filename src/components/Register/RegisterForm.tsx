@@ -2,7 +2,7 @@
 
 import { Input } from "../../components/ui/Input";
 import { Button } from "../../components/ui/Button";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { authService } from "../../services/auth.service";
 import { useRouter } from "next/navigation";
 
@@ -15,29 +15,39 @@ export const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+ const handleRegister = async () => {
+  setLoading(true);
+  setError(null);
 
-    setError(null);
-    setLoading(true);
+  try {
+    await authService.register({
+      name: name.trim(),
+      email: email.trim(),
+      password,
+    });
 
-    try {
-      await authService.register({ name, email, password });
+    console.log("Registo efetuado com sucesso");
 
-      console.log("Registo efetuado com sucesso");
+    router.replace("/Login");
+  } catch (error: unknown) {
+    console.error("Erro no registo:", error);
 
-      
-      router.push("/Login");
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Erro inesperado");
-      }
-    } finally {
-      setLoading(false);
+    if (error instanceof Error) {
+      setError(error.message);
+    } else {
+      setError("Erro inesperado ao tentar registar.");
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+    event.preventDefault();
+    handleRegister();
+  }
+
 
   return (
     <form

@@ -141,13 +141,13 @@ const Card = ({
         </span>
       </div>
 
-      <div className="w-full h-14 mb-3">
+      <div className="w-full h-20">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={sparklineData}>
             <Line
               type="monotone"
               dataKey="value"
-              stroke="#0ea5e9" // azul céu
+              stroke="#0ea5e9"
               strokeWidth={2}
               dot={false}
             />

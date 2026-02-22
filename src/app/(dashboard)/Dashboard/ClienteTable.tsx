@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Client } from "@/types/client";
 import { clientsService } from "@/services/clients.service";
+import { Button } from "@/components/ui/Button";
 
 export default function ClienteTable() {
   const [clients, setClients] = useState<Client[]>([]);
@@ -27,7 +28,10 @@ export default function ClienteTable() {
 
   const totalPages = Math.ceil(clients.length / pageSize);
 
-  const paginatedClients = clients.slice((page - 1) * pageSize, page * pageSize);
+  const paginatedClients = clients.slice(
+    (page - 1) * pageSize,
+    page * pageSize,
+  );
 
   // 🔹 Carregar cliente selecionado ao abrir modal
   useEffect(() => {
@@ -37,44 +41,64 @@ export default function ClienteTable() {
     }
 
     setSelectedClient(null);
-    clientsService.getById(selectedClientId).then((client) => setSelectedClient(client));
+    clientsService
+      .getById(selectedClientId)
+      .then((client) => setSelectedClient(client));
   }, [selectedClientId]);
 
   return (
     <Container>
       <div className="w-full mt-6 mb-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-500">Últimos Clientes</h2>
+          <h2 className="text-xl font-semibold text-gray-500">
+            Últimos Clientes
+          </h2>
 
           <div className="flex items-center gap-3">
-            <button className="px-4 py-2 text-sm bg-gray-800 text-white rounded-lg hover:bg-gray-700">
+            <Button
+              variant="primary"
+              onClick={() =>
+                alert(
+                  "Funcionalidade de criação de cliente ainda não implementada",
+                )
+              }
+            >
               Novo Cliente
-            </button>
-
-            <button className="px-4 py-2 text-sm border border-gray-400 text-gray-600 rounded-lg hover:bg-gray-100">
-              Nova Fatura
-            </button>
+            </Button>
           </div>
         </div>
 
         <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
           {loading ? (
-            <div className="p-6 text-center text-gray-500">Carregando clientes...</div>
+            <div className="p-6 text-center text-gray-500">
+              Carregando clientes...
+            </div>
           ) : (
             <table className="w-full text-sm text-left">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="px-6 py-4 font-medium text-gray-700">Cliente</th>
+                  <th className="px-6 py-4 font-medium text-gray-700">
+                    Cliente
+                  </th>
                   <th className="px-6 py-4 font-medium text-gray-700">Email</th>
-                  <th className="px-6 py-4 font-medium text-gray-700">Status</th>
-                  <th className="px-6 py-4 font-medium text-gray-700 text-center">Ações</th>
+                  <th className="px-6 py-4 font-medium text-gray-700">
+                    Status
+                  </th>
+                  <th className="px-6 py-4 font-medium text-gray-700 text-center">
+                    Ações
+                  </th>
                 </tr>
               </thead>
 
               <tbody className="divide-y divide-gray-100">
                 {paginatedClients.map((client) => (
-                  <tr key={client.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4 font-medium text-gray-900">{client.name}</td>
+                  <tr
+                    key={client.id}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="px-6 py-4 font-medium text-gray-900">
+                      {client.name}
+                    </td>
                     <td className="px-6 py-4 text-gray-600">{client.email}</td>
                     <td className="px-6 py-4 text-gray-600">{client.status}</td>
                     <td className="px-6 py-4 text-center">
@@ -111,7 +135,9 @@ export default function ClienteTable() {
                   key={pageNumber}
                   onClick={() => setPage(pageNumber)}
                   className={`px-3 py-1 text-sm rounded-md border border-gray-400 text-gray-500 ${
-                    page === pageNumber ? "bg-gray-500 text-white" : "hover:bg-gray-100"
+                    page === pageNumber
+                      ? "bg-gray-500 text-white"
+                      : "hover:bg-gray-100"
                   }`}
                 >
                   {pageNumber}
@@ -141,10 +167,18 @@ export default function ClienteTable() {
           <div className="text-sm text-gray-500">Carregando...</div>
         ) : (
           <div className="space-y-3 text-sm text-gray-700">
-            <div><strong>Nome:</strong> {selectedClient.name}</div>
-            <div><strong>Email:</strong> {selectedClient.email}</div>
-            <div><strong>Status:</strong> {selectedClient.status}</div>
-            <div><strong>ID:</strong> {selectedClient.id}</div>
+            <div>
+              <strong>Nome:</strong> {selectedClient.name}
+            </div>
+            <div>
+              <strong>Email:</strong> {selectedClient.email}
+            </div>
+            <div>
+              <strong>Status:</strong> {selectedClient.status}
+            </div>
+            <div>
+              <strong>ID:</strong> {selectedClient.id}
+            </div>
           </div>
         )}
       </Modal>

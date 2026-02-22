@@ -2,7 +2,7 @@
 
 import { Input } from "../../components/ui/Input";
 import { Button } from "../../components/ui/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authService } from "../../services/auth.service";
 import { useRouter } from "next/navigation";
 
@@ -13,24 +13,22 @@ export const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // 🔹 redireciona se já estiver logado
+  useEffect(() => {
+    if (authService.getToken()) {
+    }
+  }, [router]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    setError(null);
     setLoading(true);
+    setError(null);
 
     try {
       await authService.login({ email, password });
-
-      console.log("Login efetuado com sucesso");
-
-      router.push("/Dashboard");
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Erro inesperado");
-      }
+      router.replace("/Dashboard");
+    } catch (err: any) {
+      setError(err.message || "Erro inesperado");
     } finally {
       setLoading(false);
     }
