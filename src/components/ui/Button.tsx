@@ -22,9 +22,9 @@ export const Button = ({
 
   const variants = {
     primary:
-      "px-4 py-2 text-sm bg-gray-800 text-white rounded-lg hover:bg-gray-700", // Nova Fatura, Novo Cliente
+      "px-3 py-1 text-sm border border-gray-400 text-gray-500 rounded-md hover:bg-gray-100", // Nova Fatura, Novo Cliente
     secondary:
-      "rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition hover:bg-gray-100", // Login
+      "rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-500 transition hover:bg-gray-100", // Login
     danger:
       "rounded-md bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-200", // Register
   };
