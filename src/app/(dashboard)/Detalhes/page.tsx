@@ -1,158 +1,265 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useEffect, useCallback } from "react";
+import { Modal } from "../../../components/ui/Modal";
 import { Button } from "../../../components/ui/Button";
 import { Input } from "../../../components/ui/Input";
+import { Pencil, Trash2, Mail } from "lucide-react";
 
-interface Client {
-  id: number;
-  name: string;
-  email: string;
-}
+import { Client } from "../../../types/client";
+import { Invoice } from "../../../types/invoice";
+import { clientsService } from "../../../services/clients.service";
+import { invoicesService } from "../../../services/invoices.service";
 
-// 1️⃣ Schema de validação com Zod
-const clientSchema = z.object({
-  name: z.string().min(2, "Nome deve ter ao menos 2 caracteres"),
-  email: z.string().email("Email inválido"),
-});
+type Props = {
+  clientId: string | null;
+  onClose: () => void;
+};
 
-type ClientFormData = z.infer<typeof clientSchema>;
+type ClientForm = Pick<Client, "name" | "email" | "status">;
 
-export default function Clients() {
-  const [clients, setClients] = useState<Client[]>([]);
-  const [showForm, setShowForm] = useState(false);
-  const [editingClient, setEditingClient] = useState<Client | null>(null);
+const INITIAL_FORM: ClientForm = {
+  name: "",
+  email: "",
+  status: "active",
+};
 
-  // 2️⃣ Configuração do React Hook Form com Zod
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<ClientFormData>({
-    resolver: zodResolver(clientSchema),
-  });
+export default function ClientDetailsModal({ clientId, onClose }: Props) {
+  const isOpen = Boolean(clientId);
 
-  // 3️⃣ Abrir formulário (novo ou editar)
-  const handleOpenForm = (client?: Client) => {
-    if (client) {
-      setEditingClient(client);
-      reset({ name: client.name, email: client.email });
-    } else {
-      setEditingClient(null);
-      reset({ name: "", email: "" });
+  const [client, setClient] = useState<Client | null>(null);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [form, setForm] = useState<ClientForm>(INITIAL_FORM);
+
+  const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState(false);
+
+  console.log("clientId:", clientId);
+  console.log("Render client:", client);
+
+  const resetState = useCallback(() => {
+    setClient(null);
+    setInvoices([]);
+    setEditing(false);
+    setLoading(false);
+    setForm(INITIAL_FORM);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) {
+      resetState();
     }
-    setShowForm(true);
+  }, [isOpen, resetState]);
+
+  const fetchClientData = useCallback(async () => {
+    if (!clientId) return;
+
+    try {
+      setLoading(true);
+
+      const [clientData, invoicesData] = await Promise.all([
+        clientsService.getById(clientId),
+        invoicesService.getByClient(clientId),
+      ]);
+
+      if (!clientData) {
+        console.warn("Cliente não encontrado");
+        return;
+      }
+
+      setClient(clientData);
+
+      setForm({
+        name: clientData.name,
+        email: clientData.email,
+        status: clientData.status,
+      });
+
+      setInvoices(invoicesData ?? []);
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [clientId]);
+
+  useEffect(() => {
+    if (!clientId) return;
+
+    fetchClientData();
+  }, [clientId, fetchClientData]);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: name === "status" ? (value as Client["status"]) : value,
+    }));
   };
 
-  // 4️⃣ Salvar cliente
-  const onSubmit = async (data: ClientFormData) => {
-    if (editingClient) {
-      setClients((prev) =>
-        prev.map((c) =>
-          c.id === editingClient.id ? { ...c, ...data } : c
-        )
-      );
-    } else {
-      const newClient: Client = { id: Date.now(), ...data };
-      setClients((prev) => [...prev, newClient]);
+  const handleSave = async () => {
+    if (!client?.id) return;
+
+    try {
+      const updatedClient = await clientsService.update(client.id, form);
+
+      setClient(updatedClient);
+      setEditing(false);
+    } catch (error) {
+      console.error("Erro ao atualizar cliente:", error);
     }
-    setShowForm(false);
-    setEditingClient(null);
-    reset();
   };
 
-  const handleCancel = () => {
-    setShowForm(false);
-    setEditingClient(null);
-    reset();
+  const handleDelete = async () => {
+    if (!client) return;
+
+    const confirmed = window.confirm(`Deseja apagar ${client.name}?`);
+    if (!confirmed) return;
+
+    try {
+      await clientsService.remove(client.id);
+      onClose();
+    } catch (error) {
+      console.error("Erro ao apagar cliente:", error);
+    }
+  };
+
+  const handleSendEmail = () => {
+    if (!client) return;
+
+    alert(`Simulação: Enviar email para ${client.email}`);
   };
 
   return (
-    <div className="p-6">
-      {/* Cabeçalho */}
-      <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold">Clientes</h1>
-        <Button variant="primary" onClick={() => handleOpenForm()}>
-          Novo Cliente
-        </Button>
-      </div>
+    <Modal
+      open={isOpen}
+      onClose={onClose}
+      title={client?.name ?? "Detalhes do Cliente"}
+      size="xl"
+    >
+      {loading && (
+        <div className="text-gray-500 text-center py-10">
+          Carregando cliente...
+        </div>
+      )}
 
-      {/* Tabela de clientes */}
-      <table className="w-full border border-gray-200 rounded">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="p-2 border">Nome</th>
-            <th className="p-2 border">Email</th>
-            <th className="p-2 border">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {clients.map((client) => (
-            <tr key={client.id}>
-              <td className="p-2 border">{client.name}</td>
-              <td className="p-2 border">{client.email}</td>
-              <td className="p-2 border">
+      {!loading && !client && (
+        <div className="text-gray-500 text-center py-10">
+          Cliente não encontrado
+        </div>
+      )}
+
+      {!loading && client && (
+        <div className="space-y-6">
+          {/* CLIENT INFO */}
+          <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="text-sm font-semibold text-gray-500">
+                Nome
+              </label>
+
+              {editing ? (
+                <Input
+                  name="name"
+                  value={form.name}
+                  onChange={handleChange}
+                  className="mt-1 w-full"
+                  label=""
+                />
+              ) : (
+                <p className="mt-1 text-gray-700">{client.name}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-500">
+                Email
+              </label>
+
+              {editing ? (
+                <Input
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  className="mt-1 w-full"
+                  label=""
+                />
+              ) : (
+                <p className="mt-1 text-gray-700">{client.email}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-500">
+                Status
+              </label>
+
+              {editing ? (
+                <select
+                  name="status"
+                  value={form.status}
+                  onChange={handleChange}
+                  className="mt-1 w-full p-2 border border-gray-300 rounded"
+                >
+                  <option value="active">Ativo</option>
+                  <option value="inactive">Inativo</option>
+                </select>
+              ) : (
+                <p className="mt-1 text-gray-700 capitalize">
+                  {client.status}
+                </p>
+              )}
+            </div>
+          </section>
+
+          {/* ACTION BUTTONS */}
+          <div className="flex flex-wrap gap-3">
+            {editing ? (
+              <>
+                <Button variant="primary" onClick={handleSave}>
+                  Salvar
+                </Button>
+
                 <Button
                   variant="secondary"
-                  onClick={() => handleOpenForm(client)}
-                  className="mr-2"
+                  onClick={() => setEditing(false)}
+                >
+                  Cancelar
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="secondary"
+                  onClick={() => setEditing(true)}
+                  icon={<Pencil />}
                 >
                   Editar
                 </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
-      {/* Modal/Form */}
-      {showForm && (
-        <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="bg-white p-6 rounded w-96 shadow-lg flex flex-col gap-4"
-          >
-            <h2 className="text-xl font-bold mb-2">
-              {editingClient ? "Editar Cliente" : "Novo Cliente"}
-            </h2>
+                <Button
+                  variant="danger"
+                  onClick={handleDelete}
+                  icon={<Trash2 />}
+                >
+                  Apagar
+                </Button>
 
-            <div className="flex flex-col gap-2">
-              <Input
-                label={""} placeholder="Nome"
-                {...register("name")}              />
-              {errors.name && (
-                <span className="text-red-500 text-sm">
-                  {errors.name.message}
-                </span>
-              )}
-
-              <Input
-                label={""} placeholder="Email"
-                type="email"
-                {...register("email")}              />
-              {errors.email && (
-                <span className="text-red-500 text-sm">
-                  {errors.email.message}
-                </span>
-              )}
-            </div>
-
-            <div className="flex justify-end gap-2 mt-4">
-              <Button variant="secondary" type="button" onClick={handleCancel}>
-                Sair
-              </Button>
-              <Button variant="primary" type="submit" disabled={isSubmitting}>
-                {editingClient ? "Salvar" : "Criar"}
-              </Button>
-            </div>
-          </form>
+                <Button
+                  variant="secondary"
+                  onClick={handleSendEmail}
+                  icon={<Mail />}
+                >
+                  Enviar Email
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       )}
-    </div>
+    </Modal>
   );
 }
-

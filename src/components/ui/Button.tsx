@@ -7,12 +7,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: "primary" | "secondary" | "danger";
   isLoading?: boolean;
+  icon?: ReactNode;
 }
 
 export const Button = ({
   children,
   variant = "primary",
   isLoading = false,
+  icon,
   className,
   disabled,
   ...props

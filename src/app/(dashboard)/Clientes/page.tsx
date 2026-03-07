@@ -3,6 +3,8 @@ import { MetricCard } from "../../../components/MetricCard";
 import { Container } from "../../../components/Container/Container";
 import ClienteTable from "./ClienteTable";
 
+console.log('Leonel Helder');
+
 export default function Dashboard() {
 
   return (

@@ -3,4 +3,5 @@ export interface Client {
   name: string
   email: string
   status: "active" | "inactive"
+   createdAt: string;
 }

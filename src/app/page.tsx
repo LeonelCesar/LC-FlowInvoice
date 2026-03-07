@@ -14,7 +14,7 @@ export default function Home() {
             <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
               Controle total das suas faturas.
               <span className="block text-yellow-300">
-                Sem planilhas. Sem complicação.
+                Sem planilhas, sem complicação.
               </span>
             </h1>
 

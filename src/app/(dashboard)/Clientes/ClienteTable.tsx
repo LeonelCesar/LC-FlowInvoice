@@ -24,8 +24,6 @@ export default function ClienteTable() {
   const [clients, setClients] = useState<Client[]>([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-
-  // Estado para modal/form
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
 
@@ -54,7 +52,10 @@ export default function ClienteTable() {
   const totalPages = Math.ceil(clients.length / pageSize);
 
   // Paginação
-  const paginatedClients = clients.slice((page - 1) * pageSize, page * pageSize);
+  const paginatedClients = clients.slice(
+    (page - 1) * pageSize,
+    page * pageSize,
+  );
 
   // ⚡ Ajusta a página atual se necessário
   useEffect(() => {
@@ -76,13 +77,15 @@ export default function ClienteTable() {
   // Salvar cliente
   const onSubmit = async (data: ClientFormData) => {
     if (editingClient) {
-      // Editando
       setClients((prev) =>
-        prev.map((c) => (c.id === editingClient.id ? { ...c, ...data } : c))
+        prev.map((c) => (c.id === editingClient.id ? { ...c, ...data } : c)),
       );
     } else {
-      // Criando
-      const newClient: Client = { id: Date.now().toString(), status: "Ativo", ...data };
+      const newClient: Client = {
+        id: Date.now().toString(),
+        status: "Ativo",
+        ...data,
+      };
       setClients((prev) => [...prev, newClient]);
       setPage(totalPages); // Vai para a última página ao criar
     }
@@ -103,14 +106,18 @@ export default function ClienteTable() {
       return;
     }
     setSelectedClient(null);
-    clientsService.getById(selectedClientId).then((client) => setSelectedClient(client));
+    clientsService
+      .getById(selectedClientId)
+      .then((client) => setSelectedClient(client));
   }, [selectedClientId]);
 
   return (
     <Container>
       <div className="w-full mt-6 mb-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-gray-500">Últimos Clientes</h2>
+          <h2 className="text-xl font-semibold text-gray-500">
+            Últimos Clientes
+          </h2>
 
           <div className="flex items-center gap-3">
             <Button variant="primary" onClick={() => handleOpenForm()}>
@@ -122,21 +129,34 @@ export default function ClienteTable() {
         {/* Tabela de clientes */}
         <div className="w-full overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
           {loading ? (
-            <div className="p-6 text-center text-gray-500">Carregando clientes...</div>
+            <div className="p-6 text-center text-gray-500">
+              Carregando clientes...
+            </div>
           ) : (
             <table className="w-full text-sm text-left">
               <thead className="bg-gray-50 border-b">
                 <tr>
-                  <th className="px-6 py-4 font-medium text-gray-700">Cliente</th>
+                  <th className="px-6 py-4 font-medium text-gray-700">
+                    Cliente
+                  </th>
                   <th className="px-6 py-4 font-medium text-gray-700">Email</th>
-                  <th className="px-6 py-4 font-medium text-gray-700">Status</th>
-                  <th className="px-6 py-4 font-medium text-gray-700 text-center">Ações</th>
+                  <th className="px-6 py-4 font-medium text-gray-700">
+                    Status
+                  </th>
+                  <th className="px-6 py-4 font-medium text-gray-700 text-center">
+                    Ações
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {paginatedClients.map((client) => (
-                  <tr key={client.id} className="hover:bg-gray-50 transition-colors">
-                    <td className="px-6 py-4 font-medium text-gray-900">{client.name}</td>
+                  <tr
+                    key={client.id}
+                    className="hover:bg-gray-50 transition-colors"
+                  >
+                    <td className="px-6 py-4 font-medium text-gray-900">
+                      {client.name}
+                    </td>
                     <td className="px-6 py-4 text-gray-600">{client.email}</td>
                     <td className="px-6 py-4 text-gray-600">{client.status}</td>
                     <td className="px-6 py-4 text-center">
@@ -180,7 +200,9 @@ export default function ClienteTable() {
                   key={pageNumber}
                   onClick={() => setPage(pageNumber)}
                   className={`px-3 py-1 text-sm rounded-md border border-gray-400 text-gray-500 ${
-                    page === pageNumber ? "bg-gray-500 text-white" : "hover:bg-gray-100"
+                    page === pageNumber
+                      ? "bg-gray-500 text-white"
+                      : "hover:bg-gray-100"
                   }`}
                 >
                   {pageNumber}
@@ -209,10 +231,23 @@ export default function ClienteTable() {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Input label={""} placeholder="Nome" {...register("name")} />
-            {errors.name && <span className="text-red-500 text-sm">{errors.name.message}</span>}
+            {errors.name && (
+              <span className="text-red-500 text-sm">
+                {errors.name.message}
+              </span>
+            )}
 
-            <Input label={""} placeholder="Email" type="email" {...register("email")} />
-            {errors.email && <span className="text-red-500 text-sm">{errors.email.message}</span>}
+            <Input
+              label={""}
+              placeholder="Email"
+              type="email"
+              {...register("email")}
+            />
+            {errors.email && (
+              <span className="text-red-500 text-sm">
+                {errors.email.message}
+              </span>
+            )}
           </div>
 
           <div className="flex justify-end gap-2 mt-4">
