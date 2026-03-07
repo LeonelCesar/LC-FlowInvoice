@@ -17,7 +17,7 @@ export function CardGraficoGrid() {
         />
 
         <CardGraficos
-          title="Ticket Médio"
+          title="Trimestre Atual"
           value={34067.12}
           percentage={0.4}
           trend="down"

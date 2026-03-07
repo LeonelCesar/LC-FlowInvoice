@@ -42,7 +42,7 @@ export const CardGraficos = memo(function MetricCard({
       <header className="flex items-start justify-between">
         <div>
           <h3 className="text-sm font-medium text-slate-500">{title}</h3>
-          <p className="mt-2 text-3xl font-semibold text-slate-900">
+          <p className="mt-2 text-3xl font-semibold text-slate-700">
             {formatted}
           </p>
         </div>

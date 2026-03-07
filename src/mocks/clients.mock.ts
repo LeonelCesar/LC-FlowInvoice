@@ -1,48 +1,34 @@
-import { Client } from "../types/client";
+import { Client } from "@/types/client";
 
 export const clientsMock: Client[] = [
   {
-    id: "1",
-    name: "José César",
-    email: "josecesar@email.com",
+    id: "cli_01",
+    name: "Leonel César",
+    email: "leonel@example.com",
+    phone: "+351 912 345 678",
+    address: "Rua do Desenvolvimento, 123",
     status: "active",
-    createdAt: "2024-06-01T12:00:00Z",
+    city: "Lisbon",
+    country: "Portugal",
   },
   {
-    id: "2",
-    name: "Rita da Costa César",
-    email: "ritadacosta@email.com",
-    status: "inactive",
-    createdAt: "2024-06-02T15:30:00Z",
+    id: "cli_02",
+    name: "Maria Silva",
+    email: "maria@example.com",
+    phone: "+351 923 456 789",
+    address: "Avenida da Code, 45",
+    status: "unactive",
+    city: "Porto",
+    country: "Portugal",
   },
   {
-    id: "3",
-    name: "Leonel Helder da Costa",
-    email: "leonelcosta@email.com",
+    id: "cli_03",
+    name: "João Pereira",
+    email: "joao@example.com",
+    phone: "+351 934 567 890",
+    address: "Travessa do React, 7",
     status: "active",
-    createdAt: "2024-06-03T09:45:00Z",
-  },
-  {
-    id: "4",
-    name: "Lanira Reis Neves",
-    email: "lanirareis@email.com",
-    status: "inactive",
-    createdAt: "2024-06-04T14:20:00Z",
-  },
-  {
-    id: "5",
-    name: "Alberto da Costa César",
-    email: "albertocosta@email.com",
-    status: "active",
-    createdAt: "2024-06-05T11:10:00Z",
-  },
-  {
-    id: "6",
-    name: "Adão Domingo Gonçalves Costa",
-    email: "adaodomingo@email.com",
-    status: "inactive",
-    createdAt: "2024-06-06T16:40:00Z",
+    city: "Coimbra",
+    country: "Portugal",
   },
 ];
-
-
