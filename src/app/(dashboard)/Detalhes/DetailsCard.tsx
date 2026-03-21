@@ -8,8 +8,6 @@ import { DetailsHeader } from "../Detalhes/Header"
 import { DetailsSection } from "./DetailsSection"
 import { DetailsActions } from "./DetailsActions"
 import { ConfirmDeleteModal } from "./ConfirmDeleteModal"
-import { clientsMock } from "@/mocks/clients.mock"
-import { title } from "framer-motion/m"
 
 type Props = {
   client?: Client
@@ -27,11 +25,6 @@ export function DetailsCard({ client, invoice }: Props) {
   const subtitle = isClient 
   ? client?.email || ""
   : invoice?.clientId || "" 
-
- /*  const clientForInvoice = clientsMock.find(c => c.id === invoice?.clientId)
-const subtitle = isClient
-  ? client?.email || ""
-  : clientForInvoice?.name || invoice?.clientId */
 
   function handleDelete() {
     console.log("Item apagado")
@@ -57,19 +50,19 @@ const subtitle = isClient
           <div className="grid md:grid-cols-2 gap-6 text-sm">
             <div>
               <p className="text-gray-500">Email</p>
-              <p className="font-medium">{client.email}</p>
+              <p className="font-medium text-gray-500">{client.email}</p>
             </div>
             <div>
               <p className="text-gray-500">Telefone</p>
-              <p className="font-medium">{client.phone}</p>
+              <p className="font-medium text-gray-500">{client.phone}</p>
             </div>
             <div>
               <p className="text-gray-500">Empresa</p>
-              <p className="font-medium">{client.company}</p>
+              <p className="font-medium text-gray-500">{client.company}</p>
             </div>
             <div>
               <p className="text-gray-500">Criado em</p>
-              <p className="font-medium">{client.createdAt}</p>
+              <p className="font-medium text-gray-500">{client.createdAt}</p>
             </div>
           </div>
         </DetailsSection>
@@ -80,19 +73,19 @@ const subtitle = isClient
           <div className="grid md:grid-cols-2 gap-6 text-sm">
             <div>
               <p className="text-gray-500">Cliente</p>
-              <p className="font-medium">{invoice.clientName}</p>
+              <p className="font-medium text-gray-500">{invoice.clientId}</p>
             </div>
             <div>
               <p className="text-gray-500">Valor</p>
-              <p className="font-medium">€ {invoice.amount}</p>
+              <p className="font-medium text-gray-500">€ {invoice.amount}</p>
             </div>
             <div>
               <p className="text-gray-500">Status</p>
-              <p className="font-medium">{invoice.status}</p>
+              <p className="font-medium text-gray-500">{invoice.status}</p>
             </div>
             <div>
               <p className="text-gray-500">Vencimento</p>
-              <p className="font-medium">{invoice.dueDate}</p>
+              <p className="font-medium text-gray-500">{invoice.dueDate}</p>
             </div>
           </div>
         </DetailsSection>

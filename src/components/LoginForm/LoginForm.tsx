@@ -64,7 +64,7 @@ export const LoginForm = () => {
       <Button
         type="submit"
         disabled={loading}
-        className="w-full mt-4 bg-sky-500"
+        className="w-full mt-4 bg-sky-500 hover:bg-sky-600 border-sky-500 text-white"
       >
         {loading ? "A autenticar..." : "Entrar"}
       </Button>

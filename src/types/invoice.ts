@@ -1,12 +1,3 @@
-/* export interface Invoice {
-  id: string;
-  clientId: string;
-  amount: number;
-  issuedAt: string;
-  dueDate: string;
-  status: "paid" | "pending";
-} */
-
 export type InvoiceItem = {
   id: string;
   description: string;
@@ -15,7 +6,7 @@ export type InvoiceItem = {
 };
 
 export type Invoice = {
-  clientName: ReactNode;
+ /*  clientName: string | undefined;  */
   id: string;
   clientId: string;
   amount: number;

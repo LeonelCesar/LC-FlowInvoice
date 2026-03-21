@@ -83,7 +83,7 @@ export const RegisterForm = () => {
         <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
       )}
 
-      <Button type="submit" disabled={loading} className="w-full mt-4">
+      <Button type="submit" disabled={loading} className="w-full mt-4 bg-sky-500 hover:bg-sky-600 border-sky-500 text-white">
         {loading ? "A registar..." : "Registar"}
       </Button>
     </form>

@@ -3,7 +3,7 @@ import { Invoice } from "@/types/invoice";
 export const invoicesMock: Invoice[] = [
   {
     id: "inv_001",
-    clientId: "cli_01",
+    clientId: "Eloa Neves César",
     issuedAt: "2026-03-01",
     amount: 2 * 150, // sempre número
     dueDate: "2026-03-15",
@@ -16,7 +16,7 @@ export const invoicesMock: Invoice[] = [
   },
   {
     id: "inv_002",
-    clientId: "cli_02",
+    clientId: "Leonel Hlder César",
     issuedAt: "2026-02-20",
      amount: 2 * 150, // sempre número
     dueDate: "2026-03-05",
@@ -29,14 +29,15 @@ export const invoicesMock: Invoice[] = [
   },
   {
     id: "inv_003",
-    clientId: "cli_03",
+    clientId: "Adão Domingos Gonçalves Costa",
     issuedAt: "2026-01-15",
-     amount: 2 * 150, // sempre número
+    amount: 2 * 150, // sempre número
     dueDate: "2026-01-30",
     status: "overdue",
     items: [
       { id: "item_005", description: "Frontend Consulting", quantity: 5, price: 100 },
     ],
     total: 500,
+    /* clientName: undefined */
   },
 ];

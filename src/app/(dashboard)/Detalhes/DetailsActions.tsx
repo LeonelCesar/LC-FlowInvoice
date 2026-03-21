@@ -13,7 +13,7 @@ export function DetailsActions({ onEdit, onDelete, onEmail }: Props) {
     <div className="flex gap-2 flex-wrap">
       <button
         onClick={onEdit}
-        className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border hover:bg-gray-100"
+        className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border  border-gray-500 text-gray-500 hover:bg-gray-100"
       >
         <Pencil size={16} />
         Editar
@@ -22,7 +22,7 @@ export function DetailsActions({ onEdit, onDelete, onEmail }: Props) {
       {onEmail && (
         <button
           onClick={onEmail}
-          className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border hover:bg-gray-100"
+          className="flex items-center gap-2 px-4 py-2 text-sm rounded-lg border border-gray-500 text-gray-500 hover:bg-gray-100"
         >
           <Mail size={16} />
           Enviar Email

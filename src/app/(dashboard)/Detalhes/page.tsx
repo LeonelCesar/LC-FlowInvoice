@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { DetailsCard } from "../Detalhes/DetailsCard"
-import { Client } from "@/types/client"
-import { Invoice } from "@/types/invoice"
+import { useState } from "react";
+import { DetailsCard } from "../Detalhes/DetailsCard";
+import { Client } from "@/types/client";
+import { Invoice } from "@/types/invoice";
 
 export default function DetailsPage() {
   // Dados simulados do Cliente
@@ -17,8 +17,8 @@ export default function DetailsPage() {
     createdAt: "2026-03-01",
     status: "",
     city: "",
-    country: ""
-  }
+    country: "",
+  };
 
   // Dados simulados da Fatura
   const invoice: Invoice = {
@@ -29,26 +29,37 @@ export default function DetailsPage() {
     issuedAt: "2026-03-01", // antes era issueDate
     dueDate: "2026-03-15",
     items: [
-      { id: "item_001", description: "React Course License", quantity: 1, price: 150 },
-      { id: "item_002", description: "UI Design Template", quantity: 2, price: 550 },
+      {
+        id: "item_001",
+        description: "React Course License",
+        quantity: 1,
+        price: 150,
+      },
+      {
+        id: "item_002",
+        description: "UI Design Template",
+        quantity: 2,
+        price: 550,
+      },
     ],
     total: 1250,
-    clientName: undefined
-  }
+   /*  clientName: undefined, */
+  };
 
   // Controla se estamos mostrando Cliente ou Fatura
-  const [view, setView] = useState<"client" | "invoice">("client")
+  const [view, setView] = useState<"client" | "invoice">("client");
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-5xl mx-auto">
-
         {/* Toggle Cliente / Fatura */}
         <div className="flex gap-4 mb-6 flex-wrap">
           <button
             onClick={() => setView("client")}
             className={`px-4 py-2 rounded-lg font-medium border transition-colors ${
-              view === "client" ? "bg-blue-600 text-white border-blue-600" : "bg-white border-gray-300"
+              view === "client"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-gray-500 border-gray-500"
             }`}
           >
             Cliente
@@ -56,7 +67,9 @@ export default function DetailsPage() {
           <button
             onClick={() => setView("invoice")}
             className={`px-4 py-2 rounded-lg font-medium border transition-colors ${
-              view === "invoice" ? "bg-blue-600 text-white border-blue-600" : "bg-white border-gray-300"
+              view === "invoice"
+                ? "bg-blue-600 text-white border-blue-600"
+                : "bg-white text-gray-500 border-gray-500"
             }`}
           >
             Fatura
@@ -68,5 +81,5 @@ export default function DetailsPage() {
         {view === "invoice" && <DetailsCard invoice={invoice} />}
       </div>
     </div>
-  )
+  );
 }
