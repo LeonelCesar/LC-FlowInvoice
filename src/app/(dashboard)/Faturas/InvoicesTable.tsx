@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Invoice } from "@/types/invoice";
 import { invoicesService } from "@/services/invoices.service";
 import { Button } from "@/components/ui/Button";
-import InvoiceForm from "../Faturas/FormInvoice";
+import InvoiceForm from "./FormInvoice";
 
 export default function InvoicesTable() {
   const [invoices, setInvoices] = useState<Invoice[]>([]);

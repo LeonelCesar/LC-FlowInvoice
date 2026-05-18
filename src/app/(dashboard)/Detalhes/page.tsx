@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DetailsCard } from "../Detalhes/DetailsCard";
+import { DetailsCard } from "./DetailsCard";
 import { Client } from "@/types/client";
 import { Invoice } from "@/types/invoice";
 
@@ -43,7 +43,7 @@ export default function DetailsPage() {
       },
     ],
     total: 1250,
-   /*  clientName: undefined, */
+    /*  clientName: undefined, */
   };
 
   // Controla se estamos mostrando Cliente ou Fatura

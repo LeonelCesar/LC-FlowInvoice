@@ -28,7 +28,7 @@ export const RegisterForm = () => {
 
     console.log("Registo efetuado com sucesso");
 
-    router.replace("/Login");
+    router.replace("/login");
   } catch (error: unknown) {
     console.error("Erro no registo:", error);
 

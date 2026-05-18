@@ -26,7 +26,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/Login"
+                href="/login"
                 className="inline-flex items-center justify-center rounded-lg bg-yellow-400 px-8 py-3 text-base font-semibold text-gray-900 shadow-lg transition-all duration-200 hover:bg-yellow-500 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-300"
               >
                 Começar gratuitamente
@@ -116,7 +116,7 @@ export default function Home() {
         </h2>
 
         <Link
-          href="/Login"
+          href="/login"
           className="inline-flex items-center justify-center rounded-lg bg-yellow-400 px-8 py-3 text-base font-semibold text-gray-900 shadow-lg transition-all duration-200 hover:bg-yellow-500 hover:shadow-xl"
         >
           Criar conta agora

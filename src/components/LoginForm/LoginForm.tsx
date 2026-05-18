@@ -26,7 +26,7 @@ export const LoginForm = () => {
 
     try {
       await authService.login({ email, password });
-      router.replace("/Dashboard");
+      router.replace("/dashboard");
     } catch (err: any) {
       setError(err.message || "Erro inesperado");
     } finally {

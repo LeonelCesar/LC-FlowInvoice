@@ -28,10 +28,10 @@ type NavLinkItem = {
 /*  DATA */
 
 const NAV_LINKS: NavLinkItem[] = [
-  { label: "Dashboard", href: "/DashboardInvent", icon: LayoutDashboard },
-  { label: "Clientes", href: "/Clientes", icon: Users },
-  { label: "Faturas", href: "/Faturas", icon: FileText },
-  { label: "Detalhes", href: "/Detalhes", icon: Info },
+  { label: "Dashboard", href: "/dashboardInvent", icon: LayoutDashboard },
+  { label: "Clientes", href: "/clientes", icon: Users },
+  { label: "Faturas", href: "/faturas", icon: FileText },
+  { label: "Detalhes", href: "/detalhes", icon: Info },
 ];
 
 /*  HOOKS */
@@ -137,7 +137,7 @@ function NavLinks({ onNavigate, orientation = "vertical" }: NavLinksProps) {
               ${
                 isActive
                   ? "bg-gray-100 text-gray-500"
-                  : "text-gray-500 hover:bg-gray-50"
+                  : "text-gray-500 hover:border-gray"
               }
             `}
           >
@@ -159,11 +159,11 @@ function NavLinks({ onNavigate, orientation = "vertical" }: NavLinksProps) {
 function AuthActions({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="flex items-center gap-3">
-      <Link href="/Login" onClick={onNavigate}>
+      <Link href="/login" onClick={onNavigate}>
         <Button variant="secondary">Login</Button>
       </Link>
 
-      <Link href="/Register" onClick={onNavigate}>
+      <Link href="/register" onClick={onNavigate}>
         <Button variant="danger">Register</Button>
       </Link>
     </div>

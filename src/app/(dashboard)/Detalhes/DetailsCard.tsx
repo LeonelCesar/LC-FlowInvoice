@@ -1,34 +1,30 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Client } from "@/types/client"
-import { Invoice } from "@/types/invoice"
+import { useState } from "react";
+import { Client } from "@/types/client";
+import { Invoice } from "@/types/invoice";
 
-import { DetailsHeader } from "../Detalhes/Header"
-import { DetailsSection } from "./DetailsSection"
-import { DetailsActions } from "./DetailsActions"
-import { ConfirmDeleteModal } from "./ConfirmDeleteModal"
+import { DetailsHeader } from "./Header";
+import { DetailsSection } from "./DetailsSection";
+import { DetailsActions } from "./DetailsActions";
+import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
 
 type Props = {
-  client?: Client
-  invoice?: Invoice
-}
+  client?: Client;
+  invoice?: Invoice;
+};
 
 export function DetailsCard({ client, invoice }: Props) {
-  const [deleteOpen, setDeleteOpen] = useState(false)
-  const isClient = !!client
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const isClient = !!client;
 
-   const title = isClient  
-  ? client?.name || "" 
-  : `Invoice #${invoice?.id}`
+  const title = isClient ? client?.name || "" : `Invoice #${invoice?.id}`;
 
-  const subtitle = isClient 
-  ? client?.email || ""
-  : invoice?.clientId || "" 
+  const subtitle = isClient ? client?.email || "" : invoice?.clientId || "";
 
   function handleDelete() {
-    console.log("Item apagado")
-    setDeleteOpen(false)
+    console.log("Item apagado");
+    setDeleteOpen(false);
   }
 
   return (
@@ -97,5 +93,5 @@ export function DetailsCard({ client, invoice }: Props) {
         onConfirm={handleDelete}
       />
     </div>
-  )
+  );
 }

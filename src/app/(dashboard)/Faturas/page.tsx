@@ -1,9 +1,8 @@
 import { Container } from "../../../components/Container/Container";
-import { CardGraficoGrid } from "../Faturas/CardGraficoGrid";
-import InvoicesTable from "../Faturas/InvoicesTable";
+import { CardGraficoGrid } from "./CardGraficoGrid";
+import InvoicesTable from "./InvoicesTable";
 
 export default function Faturas() {
-
   return (
     <Container>
       <main className="py-6">
