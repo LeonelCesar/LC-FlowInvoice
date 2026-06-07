@@ -203,13 +203,11 @@ function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             aria-label="Fechar menu"
             className="rounded-md p-2 text-gray-500 transition hover:bg-gray-100"
           >
-            <X className="h-5 w-5 text-gray-500"/>
+            <X className="h-5 w-5 text-gray-500" />
           </button>
         </div>
 
-      
         <div className="flex flex-1 flex-col px-6 py-8">
-         
           <div className="flex flex-1 items-center justify-center">
             <AuthActions onNavigate={onClose} />
           </div>

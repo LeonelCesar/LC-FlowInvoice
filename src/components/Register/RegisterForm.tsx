@@ -15,39 +15,37 @@ export const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
- const handleRegister = async () => {
-  setLoading(true);
-  setError(null);
+  const handleRegister = async () => {
+    setLoading(true);
+    setError(null);
 
-  try {
-    await authService.register({
-      name: name.trim(),
-      email: email.trim(),
-      password,
-    });
+    try {
+      await authService.register({
+        name: name.trim(),
+        email: email.trim(),
+        password,
+      });
 
-    console.log("Registo efetuado com sucesso");
+      console.log("Registo efetuado com sucesso");
 
-    router.replace("/login");
-  } catch (error: unknown) {
-    console.error("Erro no registo:", error);
+      router.replace("/login");
+    } catch (error: unknown) {
+      console.error("Erro no registo:", error);
 
-    if (error instanceof Error) {
-      setError(error.message);
-    } else {
-      setError("Erro inesperado ao tentar registar.");
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Erro inesperado ao tentar registar.");
+      }
+    } finally {
+      setLoading(false);
     }
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     handleRegister();
   }
-
 
   return (
     <form
@@ -83,7 +81,11 @@ export const RegisterForm = () => {
         <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
       )}
 
-      <Button type="submit" disabled={loading} className="w-full mt-4 bg-sky-500 hover:bg-sky-600 border-sky-500 text-white">
+      <Button
+        type="submit"
+        disabled={loading}
+        className="w-full mt-4 bg-sky-500 hover:bg-sky-600 border-sky-500 text-white"
+      >
         {loading ? "A registar..." : "Registar"}
       </Button>
     </form>
